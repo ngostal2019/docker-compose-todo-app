@@ -1,0 +1,16 @@
+# Ignore IDE and OS files
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.env
+.DS_Store
+*.sqlite3
+
+# Keep migrations folder but ignore versions during init
+migrations/versions/*.py
+migrations/versions/__pycache__/
+
+# Keep the migrations folder structure but ignore auto-generated files
+# migrations/ is checked in with its structure

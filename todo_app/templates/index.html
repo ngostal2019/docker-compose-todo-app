@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <!-- Hero Section -->
+  <div class="bg-light py-5 px-4 rounded-lg mb-5" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+    <div class="text-center">
+      <h2 class="display-5 fw-bold mb-3">Great Organizers Are Great Planners</h2>
+      <p class="lead mb-4">Stay focused, stay productive. Organize your thoughts and turn them into action.</p>
+      <a href="{{ url_for('create') }}" class="btn btn-light btn-lg">
+        <i class="bi bi-plus-circle"></i> Start Planning
+      </a>
+    </div>
+  </div>
+
+  <!-- Todos Section -->
+  <h3 class="mb-4">Your Tasks</h3>
+  {% if todos %}
+    <div class="list-group">
+      {% for t in todos %}
+        <div class="list-group-item">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <div>
+              <h5 class="mb-1">
+                {% if t.done %}
+                  <s>{{ t.title }}</s>
+                {% else %}
+                  {{ t.title }}
+                {% endif %}
+              </h5>
+              {% if t.description %}
+                <p class="mb-1 small text-muted">{{ t.description }}</p>
+              {% endif %}
+            </div>
+            <div class="btn-group" role="group">
+              <form method="post" action="{{ url_for('toggle', todo_id=t.id) }}" style="display:inline">
+                <button class="btn btn-sm btn-outline-secondary" type="submit">{% if t.done %}Undone{% else %}Done{% endif %}</button>
+              </form>
+              <a class="btn btn-sm btn-outline-primary" href="{{ url_for('edit', todo_id=t.id) }}">Edit</a>
+              <form method="post" action="{{ url_for('delete', todo_id=t.id) }}" style="display:inline" onsubmit="return confirm('Delete this todo?');">
+                <button class="btn btn-sm btn-outline-danger">Delete</button>
+              </form>
+            </div>
+          </div>
+          <div class="small text-muted">
+            <span>Created: {{ t.created_at_user_tz().strftime('%Y-%m-%d %H:%M:%S %Z') }}</span>
+            {% if t.updated_at != t.created_at %}
+              <span class="ms-3">Updated: {{ t.updated_at_user_tz().strftime('%Y-%m-%d %H:%M:%S %Z') }}</span>
+            {% endif %}
+            <span class="ms-3 badge bg-secondary">{{ user.timezone }}</span>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info" role="alert">
+      <h5 class="alert-heading">No tasks yet!</h5>
+      <p>You're all caught up. <a href="{{ url_for('create') }}" class="alert-link">Create your first task</a> to get started.</p>
+    </div>
+  {% endif %}
+
+{% endblock %}

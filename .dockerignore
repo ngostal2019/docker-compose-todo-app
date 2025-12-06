@@ -1,0 +1,38 @@
+# Python runtime/build artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Database files
+*.sqlite3
+*.db
+mysql-data/
+
+# Development/test files
+docker-compose.yml
+test_timezone.py
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Git and documentation (optional, only if not needed in container)
+.git/
+.gitignore
+*.md
